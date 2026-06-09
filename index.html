@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ibtasam Ur Rehman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ─────────────────────────────── */
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161c26;
+      --surface2:  #1a2233;
+      --border:    #21293a;
+      --accent:    #4f9cf9;
+      --accent2:   #7eb8ff;
+      --text:      #dce3ef;
+      --muted:     #677690;
+      --dim:       #2c3a4f;
+      --green:     #48d282;
+      --orange:    #ff8c50;
+      --sidebar-w: 248px;
+      --sans:  'Inter', system-ui, sans-serif;
+      --serif: 'Lora', Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    strong { font-weight: 600; color: var(--text); }
+
+    /* ── TOP NAV ────────────────────────────── */
+    #topnav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 48px;
+      background: rgba(13,17,23,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 2px;
+      overflow-x: auto;
+    }
+    #topnav::-webkit-scrollbar { display: none; }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+      margin-right: 16px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .nav-sep { width: 1px; height: 18px; background: var(--border); margin: 0 6px; flex-shrink: 0; }
+    .nav-btn {
+      padding: 5px 12px;
+      border-radius: 5px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .15s, color .15s;
+      white-space: nowrap;
+      border: none;
+      background: transparent;
+      flex-shrink: 0;
+    }
+    .nav-btn:hover { background: var(--surface); color: var(--text); }
+    .nav-btn.active { background: var(--surface); color: var(--accent); }
+
+    /* ── LAYOUT ─────────────────────────────── */
+    #layout {
+      display: flex;
+      padding-top: 48px;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ────────────────────────────── */
+    #sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: fixed;
+      top: 48px; left: 0; bottom: 0;
+      overflow-y: auto;
+      padding: 32px 22px 40px;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+    }
+    #sidebar::-webkit-scrollbar { width: 4px; }
+    #sidebar::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 4px; }
+
+    .avatar {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e3a5f, #2d5a8e);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 28px; font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 14px;
+      border: 2px solid var(--border);
+      overflow: hidden;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .sb-name {
+      font-family: var(--serif);
+      font-size: 16px; font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .sb-title {
+      font-size: 12px; color: var(--muted);
+      line-height: 1.55; margin-bottom: 20px;
+    }
+
+    .sb-links { display: flex; flex-direction: column; gap: 9px; }
+    .sb-link {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12.5px; color: var(--muted);
+      transition: color .15s;
+    }
+    .sb-link:hover { color: var(--text); text-decoration: none; }
+    .sb-link svg { flex-shrink: 0; opacity: .7; }
+    .sb-link a { color: inherit; }
+    .sb-link a:hover { text-decoration: underline; }
+
+    .sb-divider { width: 100%; height: 1px; background: var(--border); margin: 18px 0; }
+
+    .sb-stats { display: flex; flex-direction: column; gap: 7px; }
+    .sb-stat { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+    .sb-stat-label { color: var(--muted); }
+    .sb-stat-val { font-weight: 600; font-size: 13px; color: var(--accent); }
+
+    /* PhD badge in sidebar */
+    .phd-badge {
+      margin-top: 16px;
+      padding: 10px 12px;
+      background: rgba(79,156,249,.07);
+      border: 1px solid rgba(79,156,249,.2);
+      border-radius: 7px;
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .phd-badge strong { color: var(--accent); font-size: 12px; }
+
+    /* ── MAIN ───────────────────────────────── */
+    #main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      min-width: 0;
+      padding: 44px 60px 80px;
+    }
+    /* Constrain content width and center it in remaining space */
+    .content-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ── SECTION ────────────────────────────── */
+    .sec {
+      padding-bottom: 52px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sec:last-child { border-bottom: none; }
+
+    .sec-title {
+      font-family: var(--serif);
+      font-size: 21px; font-weight: 500;
+      color: var(--text);
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── ABOUT ──────────────────────────────── */
+    .about-text p { color: var(--muted); margin-bottom: 12px; font-size: 14.5px; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .notice {
+      margin-top: 18px;
+      padding: 13px 16px;
+      background: rgba(79,156,249,.07);
+      border: 1px solid rgba(79,156,249,.2);
+      border-radius: 7px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+    .notice strong { color: var(--accent); }
+
+    /* ── EDUCATION ──────────────────────────── */
+    .edu-list { display: flex; flex-direction: column; gap: 20px; }
+    .edu-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 16px; align-items: start;
+    }
+    .edu-year {
+      font-size: 11.5px; font-weight: 600;
+      letter-spacing: .05em; color: var(--accent);
+      text-align: right; padding-top: 2px;
+    }
+    .edu-body h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .edu-body .inst { font-size: 12.5px; color: var(--accent); margin-bottom: 4px; }
+    .edu-body p { font-size: 13px; color: var(--muted); }
+
+    /* ── EXPERIENCE ─────────────────────────── */
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item { padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .exp-head {
+      display: flex; justify-content: space-between;
+      align-items: baseline; gap: 12px;
+      margin-bottom: 3px; flex-wrap: wrap;
+    }
+    .exp-role { font-size: 14px; font-weight: 600; color: var(--text); }
+    .exp-period { font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+    .exp-org { font-size: 12.5px; color: var(--accent); margin-bottom: 7px; }
+    .exp-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+    .chip {
+      font-size: 11px; font-weight: 500;
+      padding: 2px 9px; border-radius: 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* ── PUBLICATIONS ───────────────────────── */
+    .pub-subsection { margin-bottom: 28px; }
+    .pub-subsection:last-child { margin-bottom: 0; }
+    .pub-sub-title {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 14px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+    .pub-list { list-style: none; display: flex; flex-direction: column; }
+    .pub-item {
+      padding: 14px 0 14px 16px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .pub-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .pub-item::before {
+      content: '•';
+      position: absolute; left: 0; top: 16px;
+      color: var(--accent); font-size: 14px; line-height: 1;
+    }
+    .pub-item:first-child::before { top: 2px; }
+    .pub-num {
+      font-size: 10px; font-weight: 700;
+      color: var(--muted); letter-spacing: .04em;
+      margin-bottom: 2px;
+    }
+    .pub-title {
+      font-size: 13.5px; font-weight: 600;
+      color: var(--text); line-height: 1.45;
+      margin-bottom: 4px;
+    }
+    .pub-title a { color: var(--accent); }
+    .pub-title a:hover { text-decoration: underline; }
+    .pub-authors { font-size: 12.5px; color: var(--muted); margin-bottom: 3px; }
+    .pub-authors strong { color: var(--text); }
+    .pub-venue { font-size: 12.5px; color: var(--muted); font-style: italic; }
+    .pub-links { margin-top: 5px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .pub-link {
+      font-size: 11.5px; color: var(--accent);
+      display: inline-flex; align-items: center; gap: 3px;
+    }
+    .badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: 1px 7px; border-radius: 3px;
+      margin-left: 5px; vertical-align: middle; font-style: normal;
+    }
+    .b-ieee    { background: rgba(79,156,249,.12); color: #4f9cf9; border: 1px solid rgba(79,156,249,.25); }
+    .b-springer{ background: rgba(255,140,80,.1);  color: #ff8c50; border: 1px solid rgba(255,140,80,.25); }
+    .b-mdpi    { background: rgba(72,210,130,.1);  color: #48d282; border: 1px solid rgba(72,210,130,.25); }
+    .b-elsevier{ background: rgba(180,100,220,.1); color: #b464dc; border: 1px solid rgba(180,100,220,.25); }
+    .b-review  { background: rgba(180,180,180,.07); color: var(--muted); border: 1px solid var(--border); }
+    .b-prep    { background: rgba(255,200,50,.07); color: #d4a800; border: 1px solid rgba(255,200,50,.2); }
+
+    /* ── RESEARCH ───────────────────────────── */
+    .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .ri-card {
+      padding: 14px 16px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .ri-card h4 {
+      font-size: 13px; font-weight: 600; color: var(--text);
+      margin-bottom: 4px; display: flex; align-items: center; gap: 6px;
+    }
+    .ri-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* ── SKILLS ─────────────────────────────── */
+    .skill-rows { display: flex; flex-direction: column; }
+    .skill-row {
+      display: grid; grid-template-columns: 110px 1fr;
+      gap: 14px; padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .skill-row:first-child { padding-top: 0; }
+    .skill-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .skill-cat {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .07em; text-transform: uppercase;
+      color: var(--muted); padding-top: 3px;
+    }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    /* ── REFERENCES / RECOMMENDATION LETTERS ── */
+    .ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .ref-card {
+      padding: 16px 18px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .ref-card h4 { font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .ref-card .ref-role { font-size: 12px; color: var(--accent); margin-bottom: 6px; line-height: 1.45; }
+    .ref-card .ref-inst { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .ref-card .ref-email { font-size: 11.5px; color: var(--muted); }
+    .ref-card .ref-email a { color: var(--muted); }
+    .ref-card .ref-email a:hover { color: var(--accent); }
+    .ref-type {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: 1px 7px; border-radius: 3px; margin-bottom: 8px;
+    }
+    .rt-supervisor { background: rgba(79,156,249,.12); color: #4f9cf9; border: 1px solid rgba(79,156,249,.25); }
+    .rt-collab     { background: rgba(72,210,130,.1);  color: #48d282; border: 1px solid rgba(72,210,130,.25); }
+    .rt-academic   { background: rgba(255,140,80,.1);  color: #ff8c50; border: 1px solid rgba(255,140,80,.25); }
+
+    .rec-letters { margin-top: 28px; }
+    .rec-title {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 14px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+    .rec-list { display: flex; flex-direction: column; gap: 10px; }
+    .rec-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 16px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .rec-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #1e3a5f, #2d5a8e);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--accent);
+      flex-shrink: 0;
+    }
+    .rec-body { flex: 1; min-width: 0; }
+    .rec-body h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+    .rec-body .rec-from { font-size: 12px; color: var(--accent); margin-bottom: 4px; }
+    .rec-body .rec-quote {
+      font-size: 12.5px; color: var(--muted); line-height: 1.55;
+      font-style: italic; border-left: 2px solid var(--border);
+      padding-left: 10px; margin-top: 6px;
+    }
+
+    /* ── CERTIFICATES ───────────────────────── */
+    .cert-list { display: flex; flex-direction: column; gap: 10px; }
+    .cert-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 16px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .cert-badge {
+      width: 32px; height: 32px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .cert-body { flex: 1; }
+    .cert-body h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+    .cert-body p { font-size: 12px; color: var(--muted); }
+
+    /* ── MOBILE ─────────────────────────────── */
+    @media (max-width: 900px) {
+      #sidebar { display: none; }
+      #main { margin-left: 0; padding: 20px 20px 60px; }
+      .research-grid { grid-template-columns: 1fr; }
+      .ref-grid { grid-template-columns: 1fr; }
+      .edu-item { grid-template-columns: 60px 1fr; gap: 10px; }
+      .skill-row { grid-template-columns: 1fr; gap: 6px; }
+      .skill-cat { padding-top: 0; }
+      .nav-brand { display: none; }
+      .nav-sep { display: none; }
+    }
+    @media (max-width: 1100px) and (min-width: 901px) {
+      #main { padding: 44px 36px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav id="topnav">
+  <span class="nav-brand">Ibtasam Ur Rehman</span>
+  <div class="nav-sep"></div>
+  <button class="nav-btn active" onclick="navTo('about',this)">About</button>
+  <button class="nav-btn" onclick="navTo('education',this)">Education</button>
+  <button class="nav-btn" onclick="navTo('experience',this)">Experience</button>
+  <button class="nav-btn" onclick="navTo('publications',this)">Publications</button>
+  <button class="nav-btn" onclick="navTo('research',this)">Research</button>
+  <button class="nav-btn" onclick="navTo('skills',this)">Skills</button>
+  <button class="nav-btn" onclick="navTo('references',this)">References</button>
+  <button class="nav-btn" onclick="navTo('certificates',this)">Certificates</button>
+</nav>
+
+<div id="layout">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="avatar">IR</div>
+
+    <div class="sb-name">Ibtasam Ur Rehman</div>
+    <div class="sb-title">Lecturer &amp; AI/ML Researcher<br>TMUC, Islamabad · PhD Candidate</div>
+
+    <div class="sb-links">
+      <span class="sb-link">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+        Islamabad, Pakistan
+      </span>
+      <span class="sb-link">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        <a href="mailto:ibtasam.rehman98@gmail.com">Email</a>
+      </span>
+      <span class="sb-link">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+        <a href="https://scholar.google.com/citations?user=aPkOf5AAAAAJ" target="_blank">Google Scholar</a>
+      </span>
+      <span class="sb-link">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        <a href="https://orcid.org/0009-0003-7391-9691" target="_blank">ORCID</a>
+      </span>
+      <span class="sb-link">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        <a href="https://www.linkedin.com/in/ibtasam-ur-rehman-6150ba213/" target="_blank">LinkedIn</a>
+      </span>
+      <span class="sb-link">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        <a href="https://github.com/Ibtasam-98" target="_blank">GitHub</a>
+      </span>
+      <span class="sb-link">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M8 12h8M8 16h5"/></svg>
+        <a href="https://www.researchgate.net/profile/Ibtasam-Ur-Rehman" target="_blank">ResearchGate</a>
+      </span>
+    </div>
+
+    <div class="sb-divider"></div>
+
+    <div class="sb-stats">
+      <div class="sb-stat"><span class="sb-stat-label">Published</span><span class="sb-stat-val">9</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Under Review</span><span class="sb-stat-val">3</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">In Preparation</span><span class="sb-stat-val">1</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Teaching Exp.</span><span class="sb-stat-val">3+ yrs</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Collaborations</span><span class="sb-stat-val">4 countries</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main id="main">
+    <div class="content-wrap">
+
+    <!-- ABOUT -->
+    <div class="sec" id="about">
+      <div class="sec-title">About Me</div>
+      <div class="about-text">
+        <p>I am a <strong>Lecturer in Department of Computing and Emerging Technologies</strong> at The Millennium Universal College (TMUC), Islamabad - a Transnational Education (TNE) institution delivering the BSc Computing program in association with the University of Hertfordshire. I am also an active AI/ML researcher with nine peer-reviewed publications across <strong>IEEE, Springer, and MDPI</strong> venues.
+        <p>I hold an <strong>MSc in Computer Science (Data Science)</strong> from Ho Chi Minh City University of Technology (HCMUT), Vietnam National University, where my supervisor-evaluated thesis under <a href="https://scholar.google.com/citations?user=sGPFOAYAAAAJ&hl=en" target="_blank">A/Prof. Dr. Pham Hoang Anh</a> developed an optimized RBF-SVM classifier achieving <strong>95.24% accuracy</strong> for ophthalmic disease detection. The work was published at Springer GOODTECHS 2024 (LNICST, Scopus indexed).</p>
+        <p>My ongoing research includes <strong>TabViT</strong> a Tabular Vision Transformer for heart disease classification (targeting MDPI MAKE), a systematic review on ML/DL for multimodal neurodegenerative disease diagnosis, and an XAI survey paper for a Q1 journal. My research collaborations span Kuwait (<a href="mailto:jyousafzai@auk.edu.kw">Dr. Jibran Khan Yousafzai</a>, AUK), Malaysia (<a href="mailto:abdulraqeb.alhammadi@utm.my">Abdulraqeb Alhammadi</a>, UTM), Vietnam (<a href="mailto:anhpham@hcmut.edu.vn">Dr. Pham Hoang Anh</a>, HCMUT), and Australia (Deakin University).</p>
+      </div>
+      <div class="notice"> 
+        I am actively applying for <strong>full-time PhD positions and Research Assistant roles</strong> (Europe, America, and beyond). If you are interested in collaboration or supervision, please reach out via <a href="mailto:ibtasam.rehman98@gmail.com">email</a> or <a href="https://www.linkedin.com/in/ibtasam-ur-rehman-6150ba213/" target="_blank">LinkedIn</a>. 
+    </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="sec" id="education">
+      <div class="sec-title">Education</div>
+      <div class="edu-list">
+
+        <div class="edu-item">
+          <div class="edu-year">2023–2025</div>
+          <div class="edu-body">
+            <h3>Master of Engineering in Computer Science (Data Science)</h3>
+            <div class="inst">Ho Chi Minh City University of Technology (HCMUT) · VNU-HCM, Vietnam</div>
+            <p>Thesis: <em>Machine Learning Approaches for Detecting Ophthalmic Diseases.</em></p>
+            <p>Supervisor: <a href="https://scholar.google.com/citations?user=sGPFOAYAAAAJ&hl=en" target="_blank">A/Prof. Dr. Pham Hoang Anh</a>.</p>
+            <p style="font-size:12.5px;color:var(--muted);margin-top:6px;">Achieved <strong style="color:var(--text)">95.24% accuracy</strong> in cataract detection using an optimized RBF-SVM classifier, outperforming Random Forest (94.44%) and Polynomial SVM (92.86%) via GridSearchCV tuning. Built a full feature extraction pipeline using HSV color features, Canny edge detection, and Hu moments across a dataset of 658 retinal images. Deep learning models (ResNet50) were benchmarked against traditional ML for fundus image classification. Published at <strong style="color:var(--text)">Springer GOODTECHS 2024</strong> (LNICST vol. 649, Scopus indexed).</p>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-year">2017–2021</div>
+          <div class="edu-body">
+            <h3>Bachelor of Science in Software Engineering</h3>
+            <div class="inst">Riphah International University, Islamabad, Pakistan</div>
+            <p>Software engineering, algorithms, mobile development, and computer systems foundations.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="sec" id="experience">
+      <div class="sec-title">Experience</div>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-head">
+            <span class="exp-role">Lecturer — Computing &amp; Emerging Technologies</span>
+            <span class="exp-period">Aug 2025 – Present</span>
+          </div>
+          <div class="exp-org">The Millennium Universal College (TMUC), Islamabad, Pakistan</div>
+          <div class="exp-desc">Teaching Mobile Computing, Full Stack Development and Web Technologies, Computing Research Project at HND level. Developing curriculum alongside an active international research output.</div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-head">
+            <span class="exp-role">Researcher — AITech Lab</span>
+            <span class="exp-period">Feb 2024 – June 2025</span>
+          </div>
+          <div class="exp-org">Advanced Intelligence Technologies Lab, HCMUT, Ho Chi Minh City, Vietnam</div>
+          <div class="exp-desc">Conceptualized and developed advanced AI and IoT solutions. Collaborated with faculty to define project goals, contributed to literature reviews, and applied machine learning to classification, prediction, and disease detection tasks.</div>
+    
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-head">
+            <span class="exp-role">Senior Mobile Application Developer</span>
+            <span class="exp-period">Nov 2022 – May 2023</span>
+          </div>
+          <div class="exp-org">Ministry of Information Technology and Telecommunication, Islamabad, Pakistan</div>
+          <div class="exp-desc">Led Flutter-based mobile application development for government digital initiatives. Implemented secure API integrations, led iterative development cycles, and gathered stakeholder feedback to improve public-sector apps.</div>
+          
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-head">
+            <span class="exp-role">Mobile Application Developer</span>
+            <span class="exp-period">Aug 2021 – Nov 2022</span>
+          </div>
+          <div class="exp-org">Techorra Tech, Islamabad, Pakistan</div>
+          <div class="exp-desc">Developed high-performance cross-platform mobile applications using Flutter. Performed in-depth user research to guide design decisions, delivering seamless and intuitive user experiences.</div>
+         
+        </div>
+      </div>
+    </div>
+
+    <!-- PUBLICATIONS -->
+    <div class="sec" id="publications">
+      <div class="sec-title">Publications</div>
+
+      <!-- Peer-Reviewed Conference (Published) -->
+      <div class="pub-subsection">
+        <div class="pub-sub-title">Peer-Reviewed Conference Publications</div>
+        <ul class="pub-list">
+
+          <li class="pub-item">
+            <div class="pub-title">
+              Cortex Vision: Detection of Ophthalmic Disease Using Machine Learning Algorithm
+              <span class="badge b-springer">Springer</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Hoang-Anh Pham</div>
+            <div class="pub-venue">Smart Objects and Technologies for Social Good (GOODTECHS 2024) · LNICST vol. 649 · pp. 138–149</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://doi.org/10.1007/978-3-032-01497-9_13" target="_blank">↗ DOI</a>
+            </div>
+          </li>
+
+          <li class="pub-item">
+            <div class="pub-title">
+              Evolution of Explainable AI in Healthcare: Toward Trustworthy and Accurate Diagnostics
+              <span class="badge b-ieee">IEEE</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Abdulraqeb Alhammadi, Jibran K. Yousafzai</div>
+            <div class="pub-venue">IEEE ACDSA 2026 · International Conference on AI, Computer, Data Sciences and Applications · Boracay Island, Philippines</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://doi.org/10.1109/ACDSA67686.2026.11467739" target="_blank">↗ DOI</a>
+            </div>
+          </li>
+
+          <li class="pub-item">
+            <div class="pub-title">
+              Hybrid Machine and Deep Learning in Brain Tumor MRI Analysis
+              <span class="badge b-ieee">IEEE</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Abdulraqeb Alhammadi, Jibran K. Yousafzai, Sobia Asghar</div>
+            <div class="pub-venue">IEEE ACDSA 2026 · International Conference on AI, Computer, Data Sciences and Applications</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://doi.org/10.1109/ACDSA67686.2026.11467573" target="_blank">↗ DOI</a>
+            </div>
+          </li>
+
+          <li class="pub-item">
+            <div class="pub-title">
+              Convolutional Neural Network Pipeline with Feature Synthesis for Cardiovascular Risk Prediction
+              <span class="badge b-ieee">IEEE</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Jibran K. Yousafzai, Abdulraqeb Alhammadi, Muhammad Ikram, Maheen Ishfaq</div>
+            <div class="pub-venue">IEEE Conference on Artificial Intelligence (CAI) 2026 · pp. 2009–2014</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://doi.org/10.1109/CAI68641.2026.11536599" target="_blank">↗ DOI</a>
+            </div>
+          </li>
+
+          <li class="pub-item">
+            <div class="pub-title">
+              Lightweight Machine Learning Models for Pneumonia Detection in Chest Radiographs
+              <span class="badge b-ieee">IEEE</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Jibran K. Yousafzai, Abdulraqeb Alhammadi, Muhammad Ikram, Zoha Farooq, Maheen Ishfaq</div>
+            <div class="pub-venue">IEEE Conference on Artificial Intelligence (CAI) 2026 · pp. 2015–2020</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://doi.org/10.1109/CAI68641.2026.11536642" target="_blank">↗ DOI</a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Accepted Conference Papers -->
+      <div class="pub-subsection">
+        <div class="pub-sub-title">Accepted &amp; Presented Conference Papers</div>
+        <ul class="pub-list">
+
+          <li class="pub-item">
+            <div class="pub-title">
+              SmartGluco: A Mobile Health Solution for Diabetes Risk Assessment Using Machine Learning
+              <span class="badge b-springer">Springer LNNS</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Muhammad Islam, Neha Janu, Preeti Narooka, Ahsan Fiaz, Zakaria Alomari</div>
+            <div class="pub-venue">4th International Conference on Innovations in Data Analytics (ICIDA 2025) · 5–6 Dec 2025</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://github.com/Ibtasam-98/diabetes_prediction/blob/main/SmartGluco_V1%20(1).pdf" target="_blank">↗ View PDF</a>
+            </div>
+          </li>
+
+          <li class="pub-item">
+            <div class="pub-title">
+              Deep Learning Architectures for Urolithiasis Classification: DNN, MLP and Autoencoder-based Models
+              <span class="badge b-springer">MaRS2025</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Abdulraqeb Alhammadi, Jibran K. Yousafzai</div>
+            <div class="pub-venue">3rd MACE Research Symposium (MaRS 2025) · Sunway University, Malaysia · 11–12 Nov 2025</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://github.com/Ibtasam-98/urolithiasis_classification/blob/main/MaRS25___Deep_Learning_Architectures_for_Urolithiasis_Classification__A_Comparative_Analysis_of_DNN__MLP__and_Autoencoder_based_Models.pdf" target="_blank">↗ View PDF</a>
+            </div>
+          </li>
+
+          <li class="pub-item">
+            <div class="pub-title">
+              Hybrid AI Approaches for Clinical Diagnostics: A Case Study on Meningitis
+              <span class="badge b-springer">MaRS2025</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Abdulraqeb Alhammadi, Jibran K. Yousafzai</div>
+            <div class="pub-venue">3rd MACE Research Symposium (MaRS 2025) · Sunway University, Malaysia</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://github.com/Ibtasam-98/meningistis-classification/blob/main/Meningitis_Short_V1.pdf" target="_blank">↗ View PDF</a>
+            </div>
+          </li>
+
+          <li class="pub-item">
+            <div class="pub-title">
+              GELU-Activated Neural Network for Cardiovascular Risk Assessment: A Feature Engineered Deep Learning Approach
+              <span class="badge b-ieee">ICISS2026</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Muhammad Islam, Stuti Pandey, Preeti Narooka</div>
+            <div class="pub-venue">2nd International Conference on Intelligent Systems and Security (ICISS 2026)</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://github.com/Ibtasam-98/heart-attack-prediction/blob/main/heart_attack_prediction_v1.pdf" target="_blank">↗ View PDF</a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Journal Papers Under Review -->
+      <div class="pub-subsection">
+        <div class="pub-sub-title">Journal Papers — Under Review / Submitted</div>
+        <ul class="pub-list">
+
+          <li class="pub-item">
+            <div class="pub-title">
+              An Advanced Stacking-based Machine Learning and Deep Learning Framework for Breast Cancer Prediction
+              <span class="badge b-elsevier">Elsevier</span>
+              <span class="badge b-review">Under Review</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Muhammad Islam, Basharat Hussain</div>
+            <div class="pub-venue"><em>Big Data</em> Journal (2026)</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://doi.org/10.22541/au.177001054.47334958/v1" target="_blank">↗ Preprint</a>
+            </div>
+          </li>
+
+          <li class="pub-item">
+            <div class="pub-title">
+              Predictive Analysis of Asthma Patients Using Vision Transformer (ViT)
+              <span class="badge b-springer">Springer</span>
+              <span class="badge b-review">Submitted</span>
+            </div>
+            <div class="pub-authors">Sana Tameer, Muhammad Ehsan Rana, <strong>Ibtasam Ur Rehman</strong></div>
+            <div class="pub-venue"><em>Evolving Systems</em>, Springer (2026)</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6403967" target="_blank">↗ Preprint</a>
+            </div>
+          </li>
+
+          <li class="pub-item">
+            <div class="pub-title">
+              Integrating Retrieval Augmented Generation with LLMs for Robust and Explainable AI Text Detection
+              <span class="badge b-elsevier">Elsevier</span>
+              <span class="badge b-review">Submitted</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Muhammad Islam, Muhammad Yousaf Rehman, Basharat Hussain</div>
+            <div class="pub-venue"><em>Big Data</em> Journal (2026)</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://github.com/Ibtasam-98/Ibtasam-98/blob/main/Elsevier___LLM_VLM.pdf" target="_blank">↗ Manuscript</a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- In Preparation -->
+      <div class="pub-subsection">
+        <div class="pub-sub-title">Manuscripts in Preparation</div>
+        <ul class="pub-list">
+
+          <li class="pub-item">
+            <div class="pub-title">
+              From Black Box to Transparent Diagnosis: The Role of Explainable AI for Predictive Diagnostics in Healthcare
+              <span class="badge b-mdpi">MDPI MAKE</span>
+              <span class="badge b-prep">In Preparation</span>
+            </div>
+            <div class="pub-authors"><strong>Ibtasam Ur Rehman</strong>, Jibran K. Yousafzai </div>
+            <div class="pub-venue">Targeting <em>Machine Learning and Knowledge Extraction</em> (Q1 Journal)</div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://github.com/Ibtasam-98/Ibtasam-98/blob/main/MAKE_journal_Survey_Paper_AI_Healthcare_Extended.pdf" target="_blank">↗ Draft</a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <!-- RESEARCH -->
+    <div class="sec" id="research">
+      <div class="sec-title">Research Interests</div>
+      <div class="research-grid">
+        <div class="ri-card">
+          <h4>ML/DL for Healthcare</h4>
+          <p>Deep learning for disease classification — cardiac, ophthalmic, neurological, and pulmonary diagnostics with clinical-grade accuracy.</p>
+        </div>
+        <div class="ri-card">
+          <h4>Explainable AI (XAI)</h4>
+          <p>Sparse autoencoders, SHAP, activation patching, and interpretable-by-design architectures for transparent clinical AI.</p>
+        </div>
+        <div class="ri-card">
+          <h4>LLM / RAG Systems</h4>
+          <p>Retrieval-augmented generation for clinical knowledge bases and explainable AI-text detection pipelines.</p>
+        </div>
+        <div class="ri-card">
+          <h4>Systematic Reviews</h4>
+          <p>Evidence synthesis on AI/ML in neurodegenerative disease, multi-modal diagnosis, and XAI in healthcare.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="sec" id="skills">
+      <div class="sec-title">Skills</div>
+      <div class="skill-rows">
+        <div class="skill-row">
+          <div class="skill-cat">AI / ML</div>
+          <div class="chip-row">
+            <span class="chip">Python</span><span class="chip">TensorFlow</span><span class="chip">Scikit-learn</span>
+            <span class="chip">Vision Transformers</span><span class="chip">CNN</span><span class="chip">SVM</span>
+    
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Data Science</div>
+          <div class="chip-row">
+            <span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Matplotlib</span>
+            <span class="chip">Plotly</span><span class="chip">OpenCV</span><span class="chip">Scikit-learn</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Mobile</div>
+          <div class="chip-row">
+            <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Android</span>
+            <span class="chip">iOS</span><span class="chip">Firebase</span><span class="chip">REST APIs</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Web / Backend</div>
+          <div class="chip-row">
+            <span class="chip">HTML/CSS/JS</span><span class="chip">React</span>
+            <span class="chip">Python / FlaskAPI </span><span class="chip">SQL</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Research</div>
+          <div class="chip-row">
+            <span class="chip">LaTeX / Overleaf</span><span class="chip">IEEE Format</span>
+            <span class="chip">Springer LNICST</span><span class="chip">Systematic Review</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Design</div>
+          <div class="chip-row">
+            <span class="chip">Figma</span><span class="chip">Adobe</span><span class="chip">UI/UX</span>
+            <span class="chip">Wireframing</span><span class="chip">Prototyping</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-cat">Languages</div>
+          <div class="chip-row">
+            <span class="chip">English</span><span class="chip">Urdu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REFERENCES & RECOMMENDATION LETTERS -->
+    <div class="sec" id="references">
+      <div class="sec-title">Academic References</div>
+
+      <div class="ref-grid">
+
+        <div class="ref-card">
+          <span class="ref-type rt-supervisor">Thesis Supervisor</span>
+          <h4>A/Prof. Dr. Pham Hoang Anh</h4>
+          <div class="ref-role">Vice Dean, Faculty of Computer Science</div>
+          <div class="ref-inst">Ho Chi Minh City University of Technology (HCMUT), VNU-HCM, Vietnam</div>
+          <div class="ref-email"><a href="mailto:anhpham@hcmut.edu.vn">anhpham@hcmut.edu.vn</a></div>
+        </div>
+
+        <div class="ref-card">
+          <span class="ref-type rt-supervisor">Academic Reference</span>
+          <h4>Assoc. Prof. Dr. Nam Thoai</h4>
+          <div class="ref-role">Head of HPC Lab, Faculty of Computer Science &amp; Engineering</div>
+          <div class="ref-inst">Ho Chi Minh City University of Technology (HCMUT), Vietnam</div>
+          <div class="ref-email"><a href="mailto:namthoai@hcmut.edu.vn">namthoai@hcmut.edu.vn</a></div>
+        </div>
+
+        <div class="ref-card">
+          <span class="ref-type rt-collab">Research Collaborator</span>
+          <h4>Dr. Jibran Khan Yousafzai</h4>
+          <div class="ref-role">Associate Professor, College of Engineering &amp; Applied Sciences</div>
+          <div class="ref-inst">American University of Kuwait (AUK), Kuwait</div>
+          <div class="ref-email"><a href="mailto:jyousafzai@auk.edu.kw">jyousafzai@auk.edu.kw</a></div>
+        </div>
+
+        <div class="ref-card">
+          <span class="ref-type rt-collab">Research Collaborator</span>
+          <h4>Abdulraqeb Alhammadi</h4>
+          <div class="ref-role">Senior Lecturer, Faculty of Artificial Intelligence</div>
+          <div class="ref-inst">Universiti Teknologi Malaysia (UTM), Kuala Lumpur, Malaysia</div>
+          <div class="ref-email"><a href="mailto:abdulraqeb.alhammadi@utm.my">abdulraqeb.alhammadi@utm.my</a></div>
+        </div>
+
+        <div class="ref-card">
+          <span class="ref-type rt-academic">Academic Reference</span>
+          <h4>Dr. Musharraf Ahmed</h4>
+          <div class="ref-role">Assistant Professor &amp; Head, Dept. of Software Engineering &amp; CS</div>
+          <div class="ref-inst">Riphah International University, Islamabad, Pakistan</div>
+          <div class="ref-email"><a href="mailto:musharraf.ahmed@riphah.edu.pk">musharraf.ahmed@riphah.edu.pk</a></div>
+        </div>
+
+        <div class="ref-card">
+          <span class="ref-type rt-collab">Research Collaborator</span>
+          <h4>Dr. Basharat Hussain</h4>
+          <div class="ref-role">Assistant Professor, Faculty of Computing</div>
+          <div class="ref-inst">FAST NUCES, Islamabad, Pakistan</div>
+          <div class="ref-email"><a href="mailto:basharat.hussain@isb.nu.edu.pk">basharat.hussain@isb.nu.edu.pk</a></div>
+        </div>
+
+      </div>
+
+      <!-- Recommendation Letters -->
+      <div class="rec-letters">
+        <div class="rec-title">Letters of Recommendation</div>
+        <div class="rec-list">
+
+          <div class="rec-item">
+            <div class="rec-icon">JK</div>
+            <div class="rec-body">
+              <h4>Dr. Jibran Khan Yousafzai — American University of Kuwait</h4>
+              <div class="rec-from">Associate Professor · College of Engineering &amp; Applied Sciences · jyousafzai@auk.edu.kw</div>
+              <div class="rec-quote">
+                "From the outset of our work together, Ibtasam stood out for his maturity and his ability to work through complex research problems... Our collaborations have produced six publications at international venues. He is the first author on all of them... I am confident that he has the intellectual ability and the personal character needed to excel in your Ph.D. program."
+              </div>
+            </div>
+          </div>
+
+          <div class="rec-item">
+            <div class="rec-icon">PA</div>
+            <div class="rec-body">
+              <h4>A/Prof. Dr. Pham Hoang Anh — HCMUT, Vietnam</h4>
+              <div class="rec-from">Vice Dean, Faculty of Computer Science · MSc Thesis Supervisor · anhpham@hcmut.edu.vn</div>
+              <div class="rec-quote">
+                "The thesis fully meets the requirements of a Master's level in terms of originality, depth, and practical impact. The student demonstrates good capability of both domain knowledge and technical skills... The proposed approach has been presented at GOODTECH 2024 and published in Springer LNICST (Scopus indexed)."
+              </div>
+            </div>
+          </div>
+
+          <div class="rec-item">
+            <div class="rec-icon">NT</div>
+            <div class="rec-body">
+              <h4>Assoc. Prof. Dr. Nam Thoai — HCMUT, Vietnam</h4>
+              <div class="rec-from">Head of HPC Lab, Faculty of CS &amp; Engineering · namthoai@hcmut.edu.vn</div>
+              <div class="rec-quote">
+                "I am impressed with his enthusiastic and positive attitude toward research. Also, he performed well in all his courses, and never skipped any lecture. With an inquiring mind, Ibtasam showed perfect intellectual ability in problem-solving which are proven during group seminars and projects."
+              </div>
+            </div>
+          </div>
+
+          <div class="rec-item">
+            <div class="rec-icon">AA</div>
+            <div class="rec-body">
+              <h4>Abdulraqeb Alhammadi — Universiti Teknologi Malaysia (UTM)</h4>
+              <div class="rec-from">Senior Lecturer, Faculty of AI · Malaysia International Scholarship Referee · abdulraqeb.alhammadi@utm.my</div>
+              <div class="rec-quote">
+                "Overall, I highly recommend Mr. Ibtasam for the Malaysia International Scholarship. He has proven himself to be a dedicated, disciplined, and capable researcher. He possesses strong critical thinking skills, excellent interpersonal abilities, and a high level of self-motivation."
+              </div>
+            </div>
+          </div>
+
+          <div class="rec-item">
+            <div class="rec-icon">MZ</div>
+            <div class="rec-body">
+              <h4>Dr. Muhammad Zubair — Riphah International University</h4>
+              <div class="rec-from">Professor &amp; Dean, Faculty of Computing · m.zubair@riphah.edu.pk</div>
+              <div class="rec-quote">
+                "Mr. Ibtasam-ur-Rehman has demonstrated a strong commitment to his academic work and has shown significant dedication throughout his studies. I am confident that he has the qualities and skills necessary to succeed in a PhD program and I fully support his application."
+              </div>
+            </div>
+          </div>
+
+          <div class="rec-item">
+            <div class="rec-icon">MA</div>
+            <div class="rec-body">
+              <h4>Dr. Musharraf Ahmed — Riphah International University</h4>
+              <div class="rec-from">Assistant Professor &amp; Head, Dept. of Software Engineering · musharraf.ahmed@riphah.edu.pk</div>
+              <div class="rec-quote">
+                "I know Mr. Ibtasam for more than 7 years... Mr. Ibtasam has shown excellent communication skills, displayed a level of creativity, critical thinking, wittiness, and analytical thought by getting distinctions that are quite rare among undergraduate students."
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATES -->
+    <div class="sec" id="certificates">
+      <div class="sec-title">Certificates &amp; Conference Participation</div>
+      <div class="cert-list">
+
+        <div class="cert-item">
+          <div class="cert-badge" style="background:rgba(255,140,50,.1);">1</div>
+          <div class="cert-body">
+            <h4>Certificate of Appreciation — Presenter</h4>
+            <p>3rd MACE Research Symposium (MaRS 2025) · Malaysian Society for Automatic Control Engineers · Sunway University, Selangor · 11–12 Nov 2025</p>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <div class="cert-badge" style="background:rgba(79,156,249,.1);">2</div>
+          <div class="cert-body">
+            <h4>Certificate of Participation — Oral Presenter (ACDSA 2026 #449)</h4>
+            <p>IEEE ACDSA 2026 · Paper: Evolution of Explainable AI in Healthcare · Boracay Island, Philippines · 5–7 Feb 2026</p>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <div class="cert-badge" style="background:rgba(79,156,249,.1);">3</div>
+          <div class="cert-body">
+            <h4>Certificate of Participation — Oral Presenter (ACDSA 2026 #1016)</h4>
+            <p>IEEE ACDSA 2026 · Paper: Hybrid Machine and Deep Learning in Brain Tumor MRI Analysis · Boracay Island, Philippines</p>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <div class="cert-badge" style="background:rgba(72,210,130,.1);">4</div>
+          <div class="cert-body">
+            <h4>Certificate of Presentation — ICIDA 2025</h4>
+            <p>4th International Conference on Innovations in Data Analytics · SmartGluco paper (ICIDA 2025/PAPER_ID/149) · Springer Nature · 5–6 Dec 2025</p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    </div><!-- .content-wrap -->
+  </main>
+</div>
+
+<script>
+  // ── NAV SCROLL ───────────────────────────────────────────────
+  const NAV_H = 48 + 20; // navbar + small buffer
+
+  function navTo(id, btn) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - NAV_H;
+    window.scrollTo({ top, behavior: 'smooth' });
+    setActive(btn);
+  }
+
+  function setActive(btn) {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+
+  // ── HIGHLIGHT NAV ON SCROLL ──────────────────────────────────
+  const SECTION_IDS = ['about','education','experience','publications','research','skills','references','certificates'];
+  const navBtns = document.querySelectorAll('.nav-btn');
+
+  window.addEventListener('scroll', () => {
+    let current = SECTION_IDS[0];
+    SECTION_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - NAV_H - 2) current = id;
+    });
+    navBtns.forEach((b, i) => {
+      b.classList.toggle('active', SECTION_IDS[i] === current);
+    });
+  }, { passive: true });
+</script>
+
+</body>
+</html>
