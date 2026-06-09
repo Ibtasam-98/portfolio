@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <style>
+    /* ── TOKENS ─────────────────────────────── */
     :root {
       --bg:        #0d1117;
       --surface:   #161c26;
@@ -38,6 +39,7 @@
     a:hover { text-decoration: underline; }
     strong { font-weight: 600; color: var(--text); }
 
+    /* ── TOP NAV ────────────────────────────── */
     #topnav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -79,12 +81,14 @@
     .nav-btn:hover { background: var(--surface); color: var(--text); }
     .nav-btn.active { background: var(--surface); color: var(--accent); }
 
+    /* ── LAYOUT ─────────────────────────────── */
     #layout {
       display: flex;
       padding-top: 48px;
       min-height: 100vh;
     }
 
+    /* ── SIDEBAR ────────────────────────────── */
     #sidebar {
       width: var(--sidebar-w);
       flex-shrink: 0;
@@ -142,6 +146,7 @@
     .sb-stat-label { color: var(--muted); }
     .sb-stat-val { font-weight: 600; font-size: 13px; color: var(--accent); }
 
+    /* PhD badge in sidebar */
     .phd-badge {
       margin-top: 16px;
       padding: 10px 12px;
@@ -154,17 +159,20 @@
     }
     .phd-badge strong { color: var(--accent); font-size: 12px; }
 
+    /* ── MAIN ───────────────────────────────── */
     #main {
       margin-left: var(--sidebar-w);
       flex: 1;
       min-width: 0;
       padding: 44px 60px 80px;
     }
+    /* Constrain content width and center it in remaining space */
     .content-wrap {
       max-width: 720px;
       margin: 0 auto;
     }
 
+    /* ── SECTION ────────────────────────────── */
     .sec {
       padding-bottom: 52px;
       margin-bottom: 8px;
@@ -181,6 +189,7 @@
       border-bottom: 1px solid var(--border);
     }
 
+    /* ── ABOUT ──────────────────────────────── */
     .about-text p { color: var(--muted); margin-bottom: 12px; font-size: 14.5px; }
     .about-text p:last-child { margin-bottom: 0; }
     .notice {
@@ -194,6 +203,7 @@
     }
     .notice strong { color: var(--accent); }
 
+    /* ── EDUCATION ──────────────────────────── */
     .edu-list { display: flex; flex-direction: column; gap: 20px; }
     .edu-item {
       display: grid;
@@ -231,6 +241,7 @@
       color: var(--muted);
     }
 
+    /* ── PUBLICATIONS ───────────────────────── */
     .pub-subsection { margin-bottom: 28px; }
     .pub-subsection:last-child { margin-bottom: 0; }
     .pub-sub-title {
@@ -285,6 +296,7 @@
     .b-review  { background: rgba(180,180,180,.07); color: var(--muted); border: 1px solid var(--border); }
     .b-prep    { background: rgba(255,200,50,.07); color: #d4a800; border: 1px solid rgba(255,200,50,.2); }
 
+    /* ── RESEARCH ───────────────────────────── */
     .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .ri-card {
       padding: 14px 16px;
@@ -296,6 +308,7 @@
     }
     .ri-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
 
+    /* ── SKILLS ─────────────────────────────── */
     .skill-rows { display: flex; flex-direction: column; }
     .skill-row {
       display: grid; grid-template-columns: 110px 1fr;
@@ -312,6 +325,7 @@
     }
     .chip-row { display: flex; flex-wrap: wrap; gap: 5px; }
 
+    /* ── REFERENCES / RECOMMENDATION LETTERS ── */
     .ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .ref-card {
       padding: 16px 18px;
@@ -361,6 +375,7 @@
       padding-left: 10px; margin-top: 6px;
     }
 
+    /* ── CERTIFICATES ───────────────────────── */
     .cert-list { display: flex; flex-direction: column; gap: 10px; }
     .cert-item {
       display: flex; align-items: center; gap: 14px;
@@ -376,6 +391,7 @@
     .cert-body h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
     .cert-body p { font-size: 12px; color: var(--muted); }
 
+    /* ── MOBILE ─────────────────────────────── */
     @media (max-width: 900px) {
       #sidebar { display: none; }
       #main { margin-left: 0; padding: 20px 20px 60px; }
@@ -394,6 +410,7 @@
 </head>
 <body>
 
+<!-- TOP NAV -->
 <nav id="topnav">
   <span class="nav-brand">Ibtasam Ur Rehman</span>
   <div class="nav-sep"></div>
@@ -409,21 +426,19 @@
 
 <div id="layout">
 
+  <!-- SIDEBAR -->
   <aside id="sidebar">
     <div class="avatar">IR</div>
 
     <div class="sb-name">Ibtasam Ur Rehman</div>
-    <div class="sb-title">Lecturer &amp; AI/ML Researcher<br>TMUC, Islamabad</div>
+    <div class="sb-title">Lecturer &amp; AI/ML Researcher<br>TMUC, Islamabad · PhD Candidate</div>
 
     <div class="sb-links">
       <span class="sb-link">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
         Islamabad, Pakistan
       </span>
-      <!-- <span class="sb-link">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-        <a href="mailto:ibtasam.rehman98@gmail.com">Email</a>
-      </span> -->
+
       <span class="sb-link">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
         <a href="https://scholar.google.com/citations?user=aPkOf5AAAAAJ" target="_blank">Google Scholar</a>
@@ -452,24 +467,33 @@
       <div class="sb-stat"><span class="sb-stat-label">Published</span><span class="sb-stat-val">9</span></div>
       <div class="sb-stat"><span class="sb-stat-label">Under Review</span><span class="sb-stat-val">3</span></div>
       <div class="sb-stat"><span class="sb-stat-label">In Preparation</span><span class="sb-stat-val">1</span></div>
-      <div class="sb-stat"><span class="sb-stat-label">Teaching Exp.</span><span class="sb-stat-val">3+ yrs</span></div>
+      <div class="sb-stat"><span class="sb-stat-label">Teaching Exp.</span><span class="sb-stat-val">2+ yrs</span></div>
       <div class="sb-stat"><span class="sb-stat-label">Collaborations</span><span class="sb-stat-val">4 countries</span></div>
     </div>
+
+    
   </aside>
 
+  <!-- MAIN -->
   <main id="main">
     <div class="content-wrap">
+
+    <!-- ABOUT -->
     <div class="sec" id="about">
       <div class="sec-title">About Me</div>
       <div class="about-text">
         <p>I am a <strong>Lecturer in Department of Computing and Emerging Technologies</strong> at The Millennium Universal College (TMUC), Islamabad - a Transnational Education (TNE) institution delivering the BSc Computing program in association with the University of Hertfordshire. I am also an active AI/ML researcher with nine peer-reviewed publications across <strong>IEEE, Springer, and MDPI</strong> venues.
         <p>I hold an <strong>MSc in Computer Science (Data Science)</strong> from Ho Chi Minh City University of Technology (HCMUT), Vietnam National University, where my supervisor-evaluated thesis under <a href="https://scholar.google.com/citations?user=sGPFOAYAAAAJ&hl=en" target="_blank">A/Prof. Dr. Pham Hoang Anh</a> developed an optimized RBF-SVM classifier achieving <strong>95.24% accuracy</strong> for ophthalmic disease detection. The work was published at Springer GOODTECHS 2024 (LNICST, Scopus indexed).</p>
-        <p>My ongoing research includes <strong>TabViT</strong> a Tabular Vision Transformer for heart disease classification (targeting MDPI MAKE), a systematic review on ML/DL for multimodal neurodegenerative disease diagnosis, and an XAI survey paper for a Q1 journal. My research collaborations span Kuwait (<a href="mailto:jyousafzai@auk.edu.kw">Dr. Jibran Khan Yousafzai</a>, AUK), Malaysia (<a href="mailto:abdulraqeb.alhammadi@utm.my">Abdulraqeb Alhammadi</a>, UTM), Vietnam (<a href="mailto:anhpham@hcmut.edu.vn">Dr. Pham Hoang Anh</a>, HCMUT), and Australia (Deakin University).</p>
-      </div>
+<p>My ongoing research includes <strong>TabViT</strong>, a Tabular Vision Transformer for heart disease classification (Targeting MDPI, Machine Learning Knowledge Extraction), a systematic review on ML/DL for multimodal neurodegenerative disease diagnosis, and an XAI survey paper for a Q1 journal. My research collaborations span Kuwait (<a href="mailto:jyousafzai@auk.edu.kw">Dr. Jibran Khan Yousafzai</a>, American University of Kuwait), Malaysia (<a href="mailto:abdulraqeb.alhammadi@utm.my">Abdulraqeb Alhammadi</a>, Universiti Teknologi Malaysia), Vietnam (<a href="mailto:anhpham@hcmut.edu.vn">Dr. Pham Hoang Anh</a>, Ho Chi Minh City University of Technology), and Australia (<a href="mailto:muhammad.islam1@jcu.edu.au">Muhammad Islam</a>, James Cook University).</p>      </div>
       <div class="notice"> 
-        I am actively applying for <strong>full-time PhD positions and Research Assistant roles</strong> (Europe, America, and beyond). If you are interested in collaboration or supervision, please reach out via <a href="mailto:ibtasam.rehman98@gmail.com">email</a> or <a href="https://www.linkedin.com/in/ibtasam-ur-rehman-6150ba213/" target="_blank">LinkedIn</a>. 
+    I am actively applying for <strong>full-time PhD positions and Research Assistant roles</strong> (Europe, America, and beyond). If you are interested in collaboration or supervision, please reach out via:<br><br>
+    Personal Email: <a href="mailto:ibtasam.rehman98@gmail.com">ibtasam.rehman98@gmail.com</a><br>
+    Official Email: <a href="mailto:ibtasam.rehman@tmuc.edu.pk">ibtasam.rehman@tmuc.edu.pk</a><br><br>
+    Or connect on <a href="https://www.linkedin.com/in/ibtasam-ur-rehman-6150ba213/" target="_blank">LinkedIn</a>
+</div>
     </div>
-    </div>
+
+    <!-- EDUCATION -->
     <div class="sec" id="education">
       <div class="sec-title">Education</div>
       <div class="edu-list">
@@ -484,6 +508,7 @@
             <p style="font-size:12.5px;color:var(--muted);margin-top:6px;">Achieved <strong style="color:var(--text)">95.24% accuracy</strong> in cataract detection using an optimized RBF-SVM classifier, outperforming Random Forest (94.44%) and Polynomial SVM (92.86%) via GridSearchCV tuning. Built a full feature extraction pipeline using HSV color features, Canny edge detection, and Hu moments across a dataset of 658 retinal images. Deep learning models (ResNet50) were benchmarked against traditional ML for fundus image classification. Published at <strong style="color:var(--text)">Springer GOODTECHS 2024</strong> (LNICST vol. 649, Scopus indexed).</p>
           </div>
         </div>
+
         <div class="edu-item">
           <div class="edu-year">2017–2021</div>
           <div class="edu-body">
@@ -496,9 +521,11 @@
       </div>
     </div>
 
+    <!-- EXPERIENCE -->
     <div class="sec" id="experience">
       <div class="sec-title">Experience</div>
       <div class="exp-list">
+
         <div class="exp-item">
           <div class="exp-head">
             <span class="exp-role">Lecturer — Computing &amp; Emerging Technologies</span>
@@ -515,7 +542,9 @@
           </div>
           <div class="exp-org">Advanced Intelligence Technologies Lab, HCMUT, Ho Chi Minh City, Vietnam</div>
           <div class="exp-desc">Conceptualized and developed advanced AI and IoT solutions. Collaborated with faculty to define project goals, contributed to literature reviews, and applied machine learning to classification, prediction, and disease detection tasks.</div>
+    
         </div>
+
         <div class="exp-item">
           <div class="exp-head">
             <span class="exp-role">Senior Mobile Application Developer</span>
@@ -523,6 +552,7 @@
           </div>
           <div class="exp-org">Ministry of Information Technology and Telecommunication, Islamabad, Pakistan</div>
           <div class="exp-desc">Led Flutter-based mobile application development for government digital initiatives. Implemented secure API integrations, led iterative development cycles, and gathered stakeholder feedback to improve public-sector apps.</div>
+          
         </div>
 
         <div class="exp-item">
@@ -531,13 +561,17 @@
             <span class="exp-period">Aug 2021 – Nov 2022</span>
           </div>
           <div class="exp-org">Techorra Tech, Islamabad, Pakistan</div>
-          <div class="exp-desc">Developed high-performance cross-platform mobile applications using Flutter. Performed in-depth user research to guide design decisions, delivering seamless and intuitive user experiences.</div>    
+          <div class="exp-desc">Developed high-performance cross-platform mobile applications using Flutter. Performed in-depth user research to guide design decisions, delivering seamless and intuitive user experiences.</div>
+         
         </div>
       </div>
     </div>
 
+    <!-- PUBLICATIONS -->
     <div class="sec" id="publications">
       <div class="sec-title">Publications</div>
+
+      <!-- Peer-Reviewed Conference (Published) -->
       <div class="pub-subsection">
         <div class="pub-sub-title">Peer-Reviewed Conference Publications</div>
         <ul class="pub-list">
@@ -605,6 +639,7 @@
         </ul>
       </div>
 
+      <!-- Accepted Conference Papers -->
       <div class="pub-subsection">
         <div class="pub-sub-title">Accepted &amp; Presented Conference Papers</div>
         <ul class="pub-list">
@@ -660,6 +695,7 @@
         </ul>
       </div>
 
+      <!-- Journal Papers Under Review -->
       <div class="pub-subsection">
         <div class="pub-sub-title">Journal Papers — Under Review / Submitted</div>
         <ul class="pub-list">
@@ -706,6 +742,7 @@
         </ul>
       </div>
 
+      <!-- In Preparation -->
       <div class="pub-subsection">
         <div class="pub-sub-title">Manuscripts in Preparation</div>
         <ul class="pub-list">
@@ -727,6 +764,7 @@
       </div>
     </div>
 
+    <!-- RESEARCH -->
     <div class="sec" id="research">
       <div class="sec-title">Research Interests</div>
       <div class="research-grid">
@@ -749,6 +787,7 @@
       </div>
     </div>
 
+    <!-- SKILLS -->
     <div class="sec" id="skills">
       <div class="sec-title">Skills</div>
       <div class="skill-rows">
@@ -804,6 +843,7 @@
       </div>
     </div>
 
+    <!-- REFERENCES & RECOMMENDATION LETTERS -->
     <div class="sec" id="references">
       <div class="sec-title">Academic References</div>
 
@@ -859,6 +899,7 @@
 
       </div>
 
+      <!-- Recommendation Letters -->
       <div class="rec-letters">
         <div class="rec-title">Letters of Recommendation</div>
         <div class="rec-list">
@@ -933,6 +974,7 @@
       </div>
     </div>
 
+    <!-- CERTIFICATES -->
     <div class="sec" id="certificates">
       <div class="sec-title">Certificates &amp; Conference Participation</div>
       <div class="cert-list">
@@ -973,12 +1015,13 @@
       </div>
     </div>
 
-    </div>
+    </div><!-- .content-wrap -->
   </main>
 </div>
 
 <script>
-  const NAV_H = 48 + 20;
+  // ── NAV SCROLL ───────────────────────────────────────────────
+  const NAV_H = 48 + 20; // navbar + small buffer
 
   function navTo(id, btn) {
     const el = document.getElementById(id);
@@ -993,6 +1036,7 @@
     if (btn) btn.classList.add('active');
   }
 
+  // ── HIGHLIGHT NAV ON SCROLL ──────────────────────────────────
   const SECTION_IDS = ['about','education','experience','publications','research','skills','references','certificates'];
   const navBtns = document.querySelectorAll('.nav-btn');
 
